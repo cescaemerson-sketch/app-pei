@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PEI - Plano Educacional Individualizado</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo">
+    <div class="logo-box">
+      <img id="logoMunicipio" src="img/educação de ampere.jpg" alt="Logo do Município"
+           onerror="this.style.display='none'; document.getElementById('logoPlaceholder').style.display='flex';">
+      <div id="logoPlaceholder" class="logo-placeholder">
+        Logo do Município
+      </div>
+    </div>
+
+    <div class="titulo-topo">
+      <h1>Plano Educacional Individualizado - PEI</h1>
+      <p>Formulário de preenchimento e geração de relatório pedagógico</p>
+    </div>
+
+    <div class="topo-acoes">
+      <label class="btn secundario pequeno">
+        Alterar logo
+        <input type="file" id="uploadLogo" accept="image/*" hidden />
+      </label>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="painel">
+      <div class="painel-cabecalho">
+        <div>
+          <h2>Cadastro do estudante</h2>
+          <p>Preencha as informações e marque as opções correspondentes.</p>
+        </div>
+        <div class="acoes">
+          <button type="button" class="btn" id="novoAlunoBtn">Novo aluno</button>
+          <button type="button" class="btn sucesso" id="salvarAlunoBtn">Salvar aluno</button>
+          <button type="button" class="btn secundario" id="gerarRelatorioBtn">Gerar relatório</button>
+          <button type="button" class="btn imprimir" id="imprimirBtn">Imprimir / PDF</button>
+        </div>
+      </div>
+
+      <div class="barra-status">
+        <span id="statusAluno">Novo cadastro</span>
+        <span id="statusSalvamento">Os dados são salvos neste navegador.</span>
+      </div>
+    </section>
+
+    <form id="peiForm" autocomplete="off">
+      <input type="hidden" id="registroId" />
+
+      <section class="card">
+        <h2>1. Identificação</h2>
+        <div class="grid cols-3">
+          <label>Estudante
+            <input type="text" id="estudante" name="estudante" />
+          </label>
+          <label>CGM
+            <input type="text" id="cgm" name="cgm" />
+          </label>
+          <label>Data de nascimento
+            <input type="date" id="dataNascimento" name="dataNascimento" />
+          </label>
+          <label>Idade
+            <input type="number" min="0" id="idade" name="idade" />
+          </label>
+          <label>Matrícula em SRM
+            <input type="text" id="matriculaSrm" name="matriculaSrm" />
+          </label>
+          <label>Estabelecimento
+            <input type="text" id="estabelecimento" name="estabelecimento" />
+          </label>
+          <label>Diretor(a)
+            <input type="text" id="diretor" name="diretor" />
+          </label>
+          <label>Pedagogo(a)
+            <input type="text" id="pedagogo" name="pedagogo" />
+          </label>
+          <label>E-mail
+            <input type="email" id="email" name="email" />
+          </label>
+          <label>Ano/Série
+            <input type="text" id="anoSerie" name="anoSerie" />
+          </label>
+          <label>Turno
+            <select id="turno" name="turno">
+              <option value="">Selecione</option>
+              <option>Matutino</option>
+              <option>Vespertino</option>
+              <option>Noturno</option>
+              <option>Integral</option>
+            </select>
+          </label>
+          <label>Turma
+            <input type="text" id="turma" name="turma" />
+          </label>
+          <label>Professor(a)
+            <input type="text" id="professor" name="professor" />
+          </label>
+          <label>Trimestre
+            <select id="Trimestre" name="Trimestre">
+              <option value="">Selecione</option>
+              <option>1º Trimestre</option>
+              <option>2º Trimestre</option>
+              <option>3º trimestre</option>
+            </select>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2. Diagnóstico</h2>
+        <label>Diagnóstico (laudo)
+          <textarea id="diagnostico" name="diagnostico" rows="3"></textarea>
+        </label>
+
+        <div class="grid cols-2">
+          <div class="grupo-sim-nao">
+            <span>Faz uso de medicações?</span>
+            <label><input type="radio" name="usaMedicacao" value="Sim"> Sim</label>
+            <label><input type="radio" name="usaMedicacao" value="Não"> Não</label>
+            <input type="text" id="qualMedicacao" placeholder="Qual?">
+          </div>
+
+          <div class="grupo-sim-nao">
+            <span>Faz acompanhamento médico?</span>
+            <label><input type="radio" name="acompMedico" value="Sim"> Sim</label>
+            <label><input type="radio" name="acompMedico" value="Não"> Não</label>
+            <input type="text" id="qualMedico" placeholder="Qual?">
+          </div>
+
+          <div class="grupo-sim-nao">
+            <span>Faz acompanhamento psicológico?</span>
+            <label><input type="radio" name="acompPsicologico" value="Sim"> Sim</label>
+            <label><input type="radio" name="acompPsicologico" value="Não"> Não</label>
+          </div>
+
+          <div class="grupo-sim-nao">
+            <span>Faz acompanhamento fonoaudiológico?</span>
+            <label><input type="radio" name="acompFono" value="Sim"> Sim</label>
+            <label><input type="radio" name="acompFono" value="Não"> Não</label>
+          </div>
+
+          <div class="grupo-sim-nao">
+            <span>Faz acompanhamento terapêutico?</span>
+            <label><input type="radio" name="acompTerapeutico" value="Sim"> Sim</label>
+            <label><input type="radio" name="acompTerapeutico" value="Não"> Não</label>
+            <input type="text" id="qualTerapeutico" placeholder="Qual?">
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>3. Habilidades</h2>
+        <p class="ajuda">Marque o que o estudante consegue fazer.</p>
+
+        <div id="habilidadesContainer"></div>
+
+        <div class="subcard">
+          <h3>Atenção em atividades dirigidas</h3>
+          <label>Mantém atenção por aproximadamente
+            <input type="number" min="0" id="minutosAtencao" class="input-curto" />
+            minutos.
+          </label>
+        </div>
+
+        <div class="subcard">
+          <h3>Observações sobre habilidades</h3>
+          <textarea id="obsHabilidades" rows="4" placeholder="Registre observações complementares..."></textarea>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>4. Dificuldades</h2>
+        <p class="ajuda">Marque as barreiras observadas.</p>
+        <div id="dificuldadesContainer"></div>
+
+        <div class="subcard">
+          <h3>Observações sobre dificuldades</h3>
+          <textarea id="obsDificuldades" rows="4" placeholder="Registre observações complementares..."></textarea>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>5. Objetivos / Metas de Aprendizagem</h2>
+        <div class="alerta">
+          Defina objetivos possíveis e mensuráveis, baseados nas habilidades essenciais do ano e adequados ao nível real do estudante.
+        </div>
+        <label>Objetivos e metas
+          <textarea id="objetivosMetas" rows="8" placeholder="Ex.: Avançar da escrita silábica para silábico-alfabética..."></textarea>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>6. Adequações / Adaptações</h2>
+        <h3>Adequações e adaptações didático-metodológicas</h3>
+        <div id="adaptacoesContainer"></div>
+
+        <label>Outras adequações/adaptações
+          <textarea id="outrasAdaptacoes" rows="5"></textarea>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>7. Recursos e Suporte</h2>
+        <div id="recursosContainer"></div>
+
+        <label>Outros recursos e suporte
+          <textarea id="outrosRecursos" rows="4"></textarea>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>8. Perfil de Participação e Aprendizagem</h2>
+        <div id="perfilContainer"></div>
+        <label>Especificação de componentes curriculares / observações
+          <textarea id="perfilObservacoes" rows="4"></textarea>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>9. Acompanhamento das Ações</h2>
+        <div class="grid cols-2">
+          <label>Encaminhamentos realizados (terapia, psicólogo, neuro...)
+            <textarea id="encaminhamentosRealizados" rows="6"></textarea>
+          </label>
+          <label>Reunião com famílias
+            <textarea id="reuniaoFamilia" rows="6"></textarea>
+          </label>
+          <label>Relatórios enviados
+            <textarea id="relatoriosEnviados" rows="6"></textarea>
+          </label>
+          <label>Troca com profissionais externos
+            <textarea id="trocaProfissionais" rows="6"></textarea>
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>10. Resultados e Encaminhamentos</h2>
+        <div class="grid cols-2">
+          <label>Avanços observados
+            <textarea id="avancosObservados" rows="6"></textarea>
+          </label>
+          <label>Metas atingidas
+            <textarea id="metasAtingidas" rows="6"></textarea>
+          </label>
+          <label>Metas não alcançadas
+            <textarea id="metasNaoAlcancadas" rows="6"></textarea>
+          </label>
+          <label>Necessidade de continuidade ou ajustes
+            <textarea id="continuidadeAjustes" rows="6"></textarea>
+          </label>
+          <label class="span-2">Novos encaminhamentos
+            <textarea id="novosEncaminhamentos" rows="6"></textarea>
+          </label>
+        </div>
+      </section>
+    </form>
+
+    <section class="card">
+      <div class="painel-cabecalho">
+        <div>
+          <h2>Alunos salvos</h2>
+          <p>Cadastros armazenados localmente neste navegador.</p>
+        </div>
+      </div>
+      <div id="listaAlunos" class="lista-alunos"></div>
+    </section>
+
+    <section class="card relatorio-card">
+      <div class="painel-cabecalho">
+        <div>
+          <h2>Relatório gerado</h2>
+          <p>O texto abaixo é montado a partir das informações preenchidas.</p>
+        </div>
+        <button type="button" class="btn copiar" id="copiarRelatorioBtn">Copiar texto</button>
+      </div>
+
+      <article id="relatorio" class="relatorio">
+        <p class="relatorio-vazio">Preencha o PEI e clique em “Gerar relatório”.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>PEI - Plano Educacional Individualizado</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
